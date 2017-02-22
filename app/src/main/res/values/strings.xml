@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">BaseballBuddy</string>
     <string name="title_activity_news">newsActivity</string>
+    <string name="title_activity_scores">scoresActivity</string>
+
 </resources>

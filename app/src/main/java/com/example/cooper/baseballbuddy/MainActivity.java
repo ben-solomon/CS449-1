@@ -32,12 +32,29 @@ public class MainActivity extends AppCompatActivity {
         newsBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, newsActivity.class);
-                startActivity(intent); //TEMPORARILY COMMENTING OUT, JUST TO TEST API STUFF. THIS IS NEEDED
+                startActivity(intent);
+
+                //TEMPORARILY COMMENTING OUT, JUST TO TEST API STUFF. THIS IS NEEDED
                 //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoItem.txt");
 
 
             }
+
         });
+        Button scoresBtn = (Button) findViewById(R.id.scoresBtn);
+        scoresBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, scoreActivity.class);
+                startActivity(intent);
+
+                //TEMPORARILY COMMENTING OUT, JUST TO TEST API STUFF. THIS IS NEEDED
+                //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoItem.txt");
+
+
+            }
+
+        });
+
     }
 
     public class JSONTask extends AsyncTask<String, String, String> {

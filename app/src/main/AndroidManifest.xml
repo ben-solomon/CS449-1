@@ -20,7 +20,15 @@
         <activity
             android:name=".newsActivity"
             android:label="@string/title_activity_news"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".scoreActivity"
+            android:label="@string/title_activity_scores"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
