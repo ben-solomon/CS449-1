@@ -107,6 +107,7 @@ public class newsActivity extends AppCompatActivity {
 
                     JSONObject finalObject = jsonArray.getJSONObject(i);
                     NewsModel newsModel = new NewsModel();
+
                     newsModel.setNewsID(finalObject.getInt("NewsID"));
                     newsModel.setTitle(finalObject.getString("Title"));
                     newsModel.setUpdated(finalObject.getString("Updated"));
@@ -121,7 +122,6 @@ public class newsActivity extends AppCompatActivity {
                     newsModelList.add(newsModel);
 
                 }
-
 
                 return newsModelList;
             } catch (MalformedURLException e) {

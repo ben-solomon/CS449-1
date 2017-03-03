@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="304dp"
+        android:id="@+id/statsGridLayout">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:id="@+id/awayFrameLayout"
+            android:layout_weight="0.84"
+            app:layout_row="0"
+            app:layout_column="0">
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/team_logo_placeholder"
+                android:id="@+id/awayLogoImageView" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:id="@+id/homeFrameLayout"
+            app:layout_row="1"
+            app:layout_column="0">
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/team_logo_placeholder"
+                android:id="@+id/homeLogoImageView" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="280dp"
+            android:layout_height="170dp"
+            app:layout_row="0"
+            app:layout_column="1"
+            android:id="@+id/homeLinearLayout">
+
+            <TextView
+                android:text="homeTeamName"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeTeamName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:text="homeScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/homeScore"
+                android:layout_weight="0.02" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="280dp"
+            android:layout_height="170dp"
+            android:id="@+id/awayLinearLayout"
+            app:layout_row="1"
+            app:layout_column="1">
+
+            <TextView
+                android:text="awayTeamName"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/awayTeamName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:text="awayScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/awayScore"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </android.support.v7.widget.GridLayout>
+</LinearLayout>

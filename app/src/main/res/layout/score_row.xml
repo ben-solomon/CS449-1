@@ -6,72 +6,74 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <GridLayout
-        android:layout_width="229dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="380dp"
-            android:layout_height="54dp"
-            android:id="@+id/homeTeamLayout"
-            android:layout_weight="0.06"
-            android:layout_row="0"
-            android:layout_column="0">
+        <TextView
+            android:text="HomeTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/tvHomeTeam"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_toStartOf="@+id/tvHomeScore" />
 
-            <TextView
-                android:text="HomeTeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvHomeTeamName"
-                android:layout_weight="0.53"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        <TextView
+            android:text="homeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvHomeScore"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/tvAwayScore" />
 
-            <TextView
-                android:text="homeScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvHomeTeamScore"
-                android:layout_weight="0.41" />
+        <TextView
+            android:text="AwayTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:id="@+id/tvAwayTeam"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_below="@+id/tvHomeTeam"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/tvAwayScore" />
 
-            <TextView
-                android:text="Top/Bot"
-                android:layout_width="69dp"
-                android:layout_height="match_parent"
-                android:id="@+id/tvTopBot"
-                android:layout_weight="0.08" />
-        </LinearLayout>
+        <TextView
+            android:text="awayScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAwayScore"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_marginEnd="25dp"
+            android:layout_alignTop="@+id/tvAwayTeam"
+            android:layout_toStartOf="@+id/tvInningHalf" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="386dp"
-            android:layout_height="64dp"
-            android:layout_row="1"
-            android:layout_column="0"
-            >
+        <TextView
+            android:text="inningHalf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="44dp"
+            android:id="@+id/tvInningHalf"
+            android:layout_alignBottom="@+id/tvHomeScore"
+            android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:text="AwayTeam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvAwayTeamName"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:layout_weight="1.71" />
+        <TextView
+            android:text="inningNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvInning"
+            android:layout_alignTop="@+id/tvAwayScore"
+            android:layout_alignStart="@+id/tvInningHalf" />
 
-            <TextView
-                android:text="awayScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvAwayTeamScore"
-                android:layout_weight="1" />
+        <TextView
+            android:text="Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvStatus"
+            android:layout_below="@+id/tvAwayTeam"
+            android:layout_alignStart="@+id/tvInning" />
 
-            <TextView
-                android:text="inningNum"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:id="@+id/tvInningNum"
-                android:layout_weight="1.01" />
-        </LinearLayout>
-
-    </GridLayout>
+    </RelativeLayout>
 </LinearLayout>

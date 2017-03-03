@@ -29,6 +29,12 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
+        <activity
+            android:name=".advancedScoresActivity"
+            android:label="advancedScoresActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
