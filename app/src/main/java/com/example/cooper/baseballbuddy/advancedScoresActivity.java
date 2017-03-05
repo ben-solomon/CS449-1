@@ -2,7 +2,6 @@ package com.example.cooper.baseballbuddy;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,6 +33,13 @@ import java.util.List;
  */
 
 public class advancedScoresActivity extends AppCompatActivity {
+
+    //logoMap test = new logoMap();
+   // HashMap<String,String> logos = test.getLogoMap();
+    HashMap<Integer,String> logoMap = new HashMap<Integer, String>();
+
+
+
     TextView homeTeamName;
     TextView awayTeamName;
     TextView homeScore;
@@ -44,7 +51,7 @@ public class advancedScoresActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-
+        initializeLogos(logoMap);
         String gameID;
         int globalAwayID=0;
         int globalHomeID=0;
@@ -118,7 +125,9 @@ public class advancedScoresActivity extends AppCompatActivity {
                     advancedScoresModelObject.setTeamID(finalJSONObject.getInt("TeamID"));
                     advancedScoresModelObject.setCity(finalJSONObject.getString("City"));
                     advancedScoresModelObject.setName(finalJSONObject.getString("Name"));
-                    advancedScoresModelObject.setWikipediaLogoUrl(finalJSONObject.getString("WikipediaLogoUrl"));
+                   // advancedScoresModelObject.setWikipediaLogoUrl(finalJSONObject.getString("WikipediaLogoUrl"));
+                    // using imgur link below to test if it can be read
+                    advancedScoresModelObject.setWikipediaLogoUrl("http://i.imgur.com/Oyv9uDi.png");
                     advancedScoresModelObject.setGlobalID(finalJSONObject.getInt("GlobalTeamID"));
                     if (advancedScoresModelObject.getGlobalID() == globalAwayID)
                     {
@@ -348,5 +357,46 @@ public class advancedScoresActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+    public void initializeLogos(HashMap<Integer,String> given)
+    { //Logos have to be in a certain format... ie can't use an SVG.
+        // hashmap holds links to all of the team logos, which are then set in ImageViews
+        given.put(10000002,"http://i.imgur.com/Oyv9uDi.png");
+        given.put(10000003,)
+        given.put(10000004,)
+        given.put(10000005,)
+        given.put(10000006,)
+        given.put(10000007,)
+        given.put(10000008,)
+        given.put(10000009,)
+        given.put(10000010,)
+        given.put(10000011,)
+        given.put(10000012,)
+        given.put(10000013,)
+        given.put(10000014,)
+        given.put(10000015,)
+        given.put(10000016,)
+        given.put(10000017,)
+        given.put(10000018,)
+        given.put(10000019,)
+        given.put(10000020,)
+        given.put(10000021,)
+        given.put(10000022,)
+        given.put(10000023,)
+        given.put(10000024,)
+        given.put(10000025,)
+        given.put(10000026,)
+        given.put(10000027,)
+        given.put(10000028,)
+        given.put(10000029,)
+        given.put(10000030,)
+        given.put(10000031,)
+        given.put(10000032,)
+        given.put(10000033,)
+        given.put(10000034,)
+        given.put(10000035,)
+        given.put(10000036,)
+
+
     }
 }

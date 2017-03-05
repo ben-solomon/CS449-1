@@ -23,7 +23,7 @@
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/team_logo_placeholder"
-                android:id="@+id/awayLogoImageView" />
+                android:id="@+id/homeLogoImageView" />
 
         </FrameLayout>
 
@@ -38,7 +38,7 @@
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/team_logo_placeholder"
-                android:id="@+id/homeLogoImageView" />
+                android:id="@+id/awayLogoImageView" />
 
         </FrameLayout>
 
