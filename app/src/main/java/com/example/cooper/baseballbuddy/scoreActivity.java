@@ -31,6 +31,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Date;
 import java.text.DateFormat;
@@ -41,13 +42,14 @@ import java.util.Calendar;
  */
 
 public class scoreActivity extends AppCompatActivity {
-
+    HashMap<Integer,String> logoMap = new HashMap<Integer, String>();
     private ListView listView;
     private TextView test;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
+        initializeLogos(logoMap);
         listView = (ListView) findViewById(R.id.lvScores);
 
        // test = (TextView) findViewById(R.id.tvTest);
@@ -207,8 +209,12 @@ public class scoreActivity extends AppCompatActivity {
                     scoresModel.setGlobalGameID(finalJSONObject.getString("GlobalGameID"));
 
 */
+
                     scoresModel.setGlobalAwayTeamID(finalJSONObject.getInt("GlobalAwayTeamID"));
                     scoresModel.setGlobalHomeTeamID(finalJSONObject.getInt("GlobalHomeTeamID"));
+                    scoresModel.setAwayLogoURL(logoMap.get(scoresModel.getGlobalAwayTeamID()));
+                    scoresModel.setHomeLogoURL(logoMap.get(scoresModel.getGlobalHomeTeamID()));
+
                     scoresModelList.add(scoresModel);
 
                 }
@@ -325,5 +331,43 @@ public class scoreActivity extends AppCompatActivity {
         String apiCall = "https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/"+finalResult;
 
     }
+    public void initializeLogos(HashMap<Integer,String> given) { //Logos have to be in a certain format... ie can't use an SVG.
+        // hashmap holds links to all of the team logos, which are then set in ImageViews
+        given.put(10000001,"https://upload.wikimedia.org/wikipedia/en/2/20/Los_Angeles_Dodgers_Logo.png" );
+        given.put(10000002, "http://i.imgur.com/Oyv9uDi.png");
+        given.put(10000003, "http://i.imgur.com/NKhGZ9k.png");
+        given.put(10000004, "http://i.imgur.com/LUNnNTv.png");
+        given.put(10000005, "http://i.imgur.com/oJM2dGU.png");
+        given.put(10000006, "");
+        given.put(10000007, "");
+        given.put(10000008, "");
+        given.put(10000009,"http://i.imgur.com/dvZ0KOY.png" );
+        given.put(10000010, "http://i.imgur.com/1KVNgOL.png");
+        given.put(10000011, "http://i.imgur.com/MnOe3ri.png");
+        given.put(10000012, "http://i.imgur.com/SVj7ren.png");
+        given.put(10000013, "http://i.imgur.com/0MJ5nQD.png");
+        given.put(10000014, "http://i.imgur.com/bsBcFCN.png");
+        given.put(10000015, "http://i.imgur.com/sFh737i.png");
+        given.put(10000016, "http://i.imgur.com/W1CrzEG.png");
+        given.put(10000017, "http://i.imgur.com/13Jhdjv.png");
+        given.put(10000018, "http://i.imgur.com/wYQJY3Q.png");
+        given.put(10000019, "https://upload.wikimedia.org/wikipedia/en/c/cc/Orioles_new.PNG");
+        given.put(10000020, "https://upload.wikimedia.org/wikipedia/commons/6/61/MinnesotaTwins.PNG");
+        given.put(10000021, "http://i.imgur.com/f3fAVdE.png");
+        given.put(10000022,"http://i.imgur.com/uvtprfQ.png" );
+        given.put(10000023, "http://i.imgur.com/J8uRGYp.png");
+        given.put(10000024,"http://i.imgur.com/NY5JhsG.png" );
+        given.put(10000025,"http://i.imgur.com/dGv4lIe.png" );
+        given.put(10000026,"http://i.imgur.com/dvXNGbY.png" );
+        given.put(10000027,"" );
+        given.put(10000028,"http://i.imgur.com/pJMG7FC.png" );
+        given.put(10000029,"http://i.imgur.com/w8Bfko7.png" );
+        given.put(10000030,"http://i.imgur.com/CiWkFr7.png" );
+        given.put(10000031,"http://i.imgur.com/xRwXTEg.png" );
+        given.put(10000032,"http://i.imgur.com/vtuW8rg.png" );
+        given.put(10000033,"https://upload.wikimedia.org/wikipedia/en/8/81/San_Diego_Padres_logo.png" );
+        given.put(10000034,"" );
+        given.put(10000035,"http://i.imgur.com/jqtDOTy.png" );
+    }
 
-}
+    }

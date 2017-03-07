@@ -68,6 +68,24 @@ public class ScoresModel {
     private String globalGameID;
     private int globalAwayTeamID;
     private int globalHomeTeamID;
+    private String awayLogoURL;
+    private String homeLogoURL;
+
+    public String getHomeLogoURL() {
+        return homeLogoURL;
+    }
+
+    public void setHomeLogoURL(String homeLogoURL) {
+        this.homeLogoURL = homeLogoURL;
+    }
+
+    public String getAwayLogoURL() {
+        return awayLogoURL;
+    }
+
+    public void setAwayLogoURL(String awayLogoURL) {
+        this.awayLogoURL = awayLogoURL;
+    }
 
     public int getGlobalHomeTeamID() {
         return globalHomeTeamID;
