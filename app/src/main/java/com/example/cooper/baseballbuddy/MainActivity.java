@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, newsActivity.class);
                 startActivity(intent);
 
-                //TEMPORARILY COMMENTING OUT, JUST TO TEST API STUFF. THIS IS NEEDED
-                //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoItem.txt");
-
-
             }
 
         });
@@ -46,18 +42,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, scoreActivity.class);
                 startActivity(intent);
-
-                //TEMPORARILY COMMENTING OUT, JUST TO TEST API STUFF. THIS IS NEEDED
-                //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoItem.txt");
-
-
             }
 
         });
 
     }
 
-    public class JSONTask extends AsyncTask<String, String, String> {
+    /*public class JSONTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
             BufferedReader reader = null;
@@ -106,5 +97,5 @@ public class MainActivity extends AppCompatActivity {
 
             test.setText(result);
         }
-    }
+    }*/
 }

@@ -2,15 +2,20 @@ package com.example.cooper.baseballbuddy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,14 +56,11 @@ public class scoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scores);
         initializeLogos(logoMap);
         listView = (ListView) findViewById(R.id.lvScores);
-
-       // test = (TextView) findViewById(R.id.tvTest);
-        //call my parse function here, create it just inside of the activity function
-        new JSONTask2().execute("https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/2015-JUL-31");
-
+        new JSONTask().execute("https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/2015-JUL-31");
+        //new JSONTask().execute(getCurrentDate());
     }
 
-    public class JSONTask extends AsyncTask<String, String, String> {
+    /*public class JSONTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
             BufferedReader reader = null;
@@ -110,8 +112,8 @@ public class scoreActivity extends AppCompatActivity {
             test.setText(result);
         }
     }
-
-    public class JSONTask2 extends AsyncTask<String, String, List<ScoresModel>> {
+*/
+    public class JSONTask extends AsyncTask<String, String, List<ScoresModel>> {
         @Override
         protected List<ScoresModel> doInBackground(String... params) {
             BufferedReader reader = null;
@@ -133,7 +135,7 @@ public class scoreActivity extends AppCompatActivity {
                 }
 
 
-                String finalJSON = buffer.toString();
+                String finalJSON = buffer.toString(); // call is now inside string finalJSON
                 List<ScoresModel> scoresModelList = new ArrayList<>();
                 JSONArray jsonArray = new JSONArray(finalJSON);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -142,28 +144,18 @@ public class scoreActivity extends AppCompatActivity {
                     ScoresModel scoresModel = new ScoresModel();
                     scoresModel.setStatus(finalJSONObject.getString("Status"));
                     scoresModel.setGameID(finalJSONObject.getString("GameID"));
-/*
-
+/*              //////////////////////////////////////////////////////////////////////////////////////
+                    all commented scoresModel setters should be kept in case of passing more data at
+                    a different time. A lot of wasted time typing
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     scoresModel.setSeason(finalJSONObject.getString("Season"));
                     scoresModel.setSeasonType(finalJSONObject.getInt("SeasonType"));
-
                     scoresModel.setDay(finalJSONObject.getString("Day"));
                     scoresModel.setDateTime(finalJSONObject.getString("DateTime"));
-                    */
-                    scoresModel.setAwayTeam(finalJSONObject.getString("AwayTeam"));
-                    scoresModel.setHomeTeam(finalJSONObject.getString("HomeTeam"));
-                   /*
                     scoresModel.setRescheduledGameID(finalJSONObject.getString("RescheduledGameID"));
                     scoresModel.setStadiumID(finalJSONObject.getString("StadiumID"));
                     scoresModel.setChannel(finalJSONObject.getString("Channel"));
-                    */
-                    scoresModel.setInning(finalJSONObject.getInt("Inning"));
-                    scoresModel.setInningHalf(finalJSONObject.getString("InningHalf"));
-
-                    scoresModel.setAwayTeamRuns(finalJSONObject.getInt("AwayTeamRuns"));
-                    scoresModel.setHomeTeamRuns(finalJSONObject.getInt("HomeTeamRuns"));
-
-                  /*  scoresModel.setAwayTeamHits(finalJSONObject.getInt("AwayTeamHits"));
+                    scoresModel.setAwayTeamHits(finalJSONObject.getInt("AwayTeamHits"));
                     scoresModel.setHomeTeamHits(finalJSONObject.getInt("HomeTeamHits"));
                     scoresModel.setAwayTeamErrors(finalJSONObject.getInt("AwayTeamErrors"));
                     scoresModel.setHomeTeamErrors(finalJSONObject.getInt("HomeTeamErrors"));
@@ -207,9 +199,13 @@ public class scoreActivity extends AppCompatActivity {
                     scoresModel.setDueUpHitterID2(finalJSONObject.getString("DueUpHitterID2"));
                     scoresModel.setDueUpHitterID3(finalJSONObject.getString("DueUpHitterID3"));
                     scoresModel.setGlobalGameID(finalJSONObject.getString("GlobalGameID"));
-
-*/
-
+                    */
+                    scoresModel.setAwayTeam(finalJSONObject.getString("AwayTeam"));
+                    scoresModel.setHomeTeam(finalJSONObject.getString("HomeTeam"));
+                    scoresModel.setInning(finalJSONObject.getInt("Inning"));
+                    scoresModel.setInningHalf(finalJSONObject.getString("InningHalf"));
+                    scoresModel.setAwayTeamRuns(finalJSONObject.getInt("AwayTeamRuns"));
+                    scoresModel.setHomeTeamRuns(finalJSONObject.getInt("HomeTeamRuns"));
                     scoresModel.setGlobalAwayTeamID(finalJSONObject.getInt("GlobalAwayTeamID"));
                     scoresModel.setGlobalHomeTeamID(finalJSONObject.getInt("GlobalHomeTeamID"));
                     scoresModel.setAwayLogoURL(logoMap.get(scoresModel.getGlobalAwayTeamID()));
@@ -282,7 +278,11 @@ public class scoreActivity extends AppCompatActivity {
             TextView inningTopBot;
             TextView inningNum;
             TextView Status;
+            ImageView awayLogo;
+            ImageView homeLogo;
 
+            awayLogo = (ImageView)convertView.findViewById(R.id.rowAwayLogo);
+            homeLogo = (ImageView)convertView.findViewById(R.id.rowHomeLogo);
             Status = (TextView) convertView.findViewById(R.id.tvStatus);
             homeTeamName = (TextView) convertView.findViewById(R.id.tvHomeTeam);
             awayTeamName = (TextView) convertView.findViewById(R.id.tvAwayTeam);
@@ -290,11 +290,11 @@ public class scoreActivity extends AppCompatActivity {
             awayTeamScore = (TextView) convertView.findViewById(R.id.tvAwayScore);
             inningTopBot = (TextView) convertView.findViewById(R.id.tvInningHalf);
             inningNum = (TextView) convertView.findViewById(R.id.tvInning);
+        //    new DownloadImageTask((ImageView) findViewById(R.id.rowAwayLogo))
+        //            .execute(scoreModelList.get(position).getAwayLogoURL());
+        //    new DownloadImageTask((ImageView) findViewById(R.id.rowHomeLogo))
+        //            .execute(scoreModelList.get(position).getHomeLogoURL());
 
-
-            //originally, content declared as textview like above
-            // Content = (TextView)convertView.findViewById(R.id.tvContent);
-            //Headline = (TextView)convertView.findViewById(R.id.tvHeadline);
             Status.setText(scoreModelList.get(position).getStatus().toString());
             homeTeamScore.setText(scoreModelList.get(position).getHomeTeamRuns()+"");
             awayTeamScore.setText(scoreModelList.get(position).getAwayTeamRuns()+"");
@@ -302,8 +302,6 @@ public class scoreActivity extends AppCompatActivity {
             inningNum.setText(scoreModelList.get(position).getInning()+"");
             awayTeamName.setText(scoreModelList.get(position).getAwayTeam().toString());
             homeTeamName.setText(scoreModelList.get(position).getHomeTeam().toString());
-            //Headline.setText(newsModelList.get(position).getTitle());
-            //Content.setText(newsModelList.get(position).getContent());
 
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -313,6 +311,8 @@ public class scoreActivity extends AppCompatActivity {
                     intent.putExtra("GameID",scoreModelList.get(position).getGameID());
                     intent.putExtra("GlobalAwayTeamID",scoreModelList.get(position).getGlobalAwayTeamID());
                     intent.putExtra("GlobalHomeTeamID",scoreModelList.get(position).getGlobalHomeTeamID());
+                    intent.putExtra("AwayTeamLogoURL", scoreModelList.get(position).getAwayLogoURL());
+                    intent.putExtra("HomeTeamLogoURL", scoreModelList.get(position).getHomeLogoURL());
 
                     startActivity(intent);
                 }
@@ -320,7 +320,7 @@ public class scoreActivity extends AppCompatActivity {
             return convertView;
         }
     }
-    public void getCurrentDate(){//adjusts web address being called to today
+    public String getCurrentDate(){//adjusts web address being called to today
         Date today = Calendar.getInstance().getTime();
         String date = today.toString();
         String month = date.substring(4,7);
@@ -329,9 +329,12 @@ public class scoreActivity extends AppCompatActivity {
         String dayNum = date.substring(8,10);
         String finalResult = year+"-"+month+"-"+dayNum;
         String apiCall = "https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/"+finalResult;
-
+      //  JSONTask test = new JSONTask(); will later implement a workaround for a day where no games are played, i.e. given NULL
+      //  test.execute(apiCall);
+         return apiCall;
     }
-    public void initializeLogos(HashMap<Integer,String> given) { //Logos have to be in a certain format... ie can't use an SVG.
+    public void initializeLogos(HashMap<Integer,String> given) {
+        //Logos have to be in a certain format... ie can't use an SVG.
         // hashmap holds links to all of the team logos, which are then set in ImageViews
         given.put(10000001,"https://upload.wikimedia.org/wikipedia/en/2/20/Los_Angeles_Dodgers_Logo.png" );
         given.put(10000002, "http://i.imgur.com/Oyv9uDi.png");
@@ -369,5 +372,28 @@ public class scoreActivity extends AppCompatActivity {
         given.put(10000034,"" );
         given.put(10000035,"http://i.imgur.com/jqtDOTy.png" );
     }
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
 
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
+}

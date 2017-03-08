@@ -48,38 +48,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class newsActivity extends AppCompatActivity {
-    private TextView textView;
+
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
-        //textView = (TextView)findViewById(R.id.textView);
         listView = (ListView) findViewById(R.id.lvNews);
-     //   listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-       //     @Override
-         //   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-           //     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse());
-           //     startActivity(intent);
-           // }
-        //});
-        //new JSONTask().execute("https://jsonparsingdemo-cec5b.firebaseapp.com/jsonData/moviesDemoItem.txt");
-        // new JSONTask().execute("https://api.fantasydata.net/mlb/v2/{format}/News");
-        //new JSONTask().execute("http://api.sportradar.us/nfl-ot1/seasontd/2016/standings.json?api_key=wq5x2k2pjfrhatkkb3hhftfe");
-        new JSONTask2().execute("https://api.fantasydata.net/mlb/v2/JSON/News");
+        new JSONTask().execute("https://api.fantasydata.net/mlb/v2/JSON/News");
 
     }
 
-    public class JSONTask2 extends AsyncTask<String, String, List<NewsModel>> {
+    public class JSONTask extends AsyncTask<String, String, List<NewsModel>> {
         @Override
         protected List<NewsModel> doInBackground(String... params) {
             BufferedReader reader = null;
             HttpURLConnection connect = null;
             HttpURLConnection huc = null;
-            String result = "";
+
             try {
                 URL url = new URL(params[0]);
                 huc = (HttpURLConnection) url.openConnection();
@@ -100,7 +87,6 @@ public class newsActivity extends AppCompatActivity {
                 }
 
                 String finalJson = buffer1.toString();
-                StringBuffer finalBuffer = new StringBuffer();
                 List<NewsModel> newsModelList = new ArrayList<>();
                 JSONArray jsonArray = new JSONArray(finalJson);
                 for (int i = 0; i < jsonArray.length(); i++) {

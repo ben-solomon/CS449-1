@@ -88,4 +88,173 @@
                 android:layout_weight="1" />
         </LinearLayout>
     </android.support.v7.widget.GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/boxScoreGrid">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Home"
+            android:ems="10"
+            android:id="@+id/homeTV" />
+
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/first"
+            android:layout_row="0"
+            android:layout_column="1" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/second"
+            android:layout_row="0"
+            android:layout_column="2" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/third"
+            android:layout_row="0"
+            android:layout_column="3" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/fourth"
+            android:layout_row="0"
+            android:layout_column="4" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/fifth"
+            android:layout_row="0"
+            android:layout_column="5" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/sixth"
+            android:layout_row="0"
+            android:layout_column="6" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/seventh"
+            android:layout_row="0"
+            android:layout_column="7" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/eighth"
+            android:layout_row="0"
+            android:layout_column="8" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/ninth"
+            android:layout_row="0"
+            android:layout_column="9" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Away"
+            android:ems="10"
+            android:id="@+id/awayTV"
+            android:layout_row="1"
+            android:layout_column="0" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awayFirst"
+            android:layout_row="1"
+            android:layout_column="1" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awaySecond"
+            android:layout_row="1"
+            android:layout_column="2" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awayThird"
+            android:layout_row="1"
+            android:layout_column="3" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awayFourth"
+            android:layout_row="1"
+            android:layout_column="4" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awayFifth"
+            android:layout_row="1"
+            android:layout_column="5" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awaySixth"
+            android:layout_row="1"
+            android:layout_column="6" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awaySeventh"
+            android:layout_row="1"
+            android:layout_column="7" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awayEighth"
+            android:layout_row="1"
+            android:layout_column="8" />
+        <TextView
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/awayNinth"
+            android:layout_row="1"
+            android:layout_column="9" />
+    </GridLayout>
+
 </LinearLayout>

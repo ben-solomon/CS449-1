@@ -12,10 +12,12 @@ import android.widget.Toast;
 
 import com.example.cooper.baseballbuddy.models.advancedScoresModel;
 import com.example.cooper.baseballbuddy.models.boxScoreModel;
+import com.example.cooper.baseballbuddy.models.inningModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,16 +36,30 @@ import java.util.List;
 
 public class advancedScoresActivity extends AppCompatActivity {
 
-    //logoMap test = new logoMap();
-   // HashMap<String,String> logos = test.getLogoMap();
-
-
-
-
     TextView homeTeamName;
     TextView awayTeamName;
     TextView homeScore;
     TextView awayScore;
+    TextView homeInning1;// Used to display box score at bottom of activity
+    TextView homeInning2;
+    TextView homeInning3;
+    TextView homeInning4;
+    TextView homeInning5;
+    TextView homeInning6;
+    TextView homeInning7;
+    TextView homeInning8;
+    TextView homeInning9;
+    TextView awayInning1;
+    TextView awayInning2;
+    TextView awayInning3;
+    TextView awayInning4;
+    TextView awayInning5;
+    TextView awayInning6;
+    TextView awayInning7;
+    TextView awayInning8;
+    TextView awayInning9;
+
+
     ImageView homeLogo;
     ImageView awayLogo;
     Bitmap bitmapHome;
@@ -51,35 +67,38 @@ public class advancedScoresActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-
+        String awayURL="";
+        String homeURL="";
         String gameID;
-        int globalAwayID=0;
-        int globalHomeID=0;
+
         setContentView(R.layout.activity_advanced_scores);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             gameID = extras.getString("GameID");//taking gameID from the previous activity to concatenate with boxScoreURL to fetch fields
-            globalAwayID = extras.getInt("GlobalAwayTeamID");
-            globalHomeID = extras.getInt("GlobalHomeTeamID");
+            awayURL = extras.getString("AwayTeamLogoURL");
+            homeURL = extras.getString("HomeTeamLogoURL");
 
-            //The key argument here must match that used in the other activity
         }
         else
         {
             gameID = null;
-            globalAwayID = 0;
-            globalHomeID=0;
         }
         String boxScoreURL = "https://api.fantasydata.net/mlb/v2/JSON/BoxScore/"+gameID;
         super.onCreate(savedInstanceState);
         new Matchup().execute(boxScoreURL);
         new getTeamData().execute("https://api.fantasydata.net/mlb/v2/JSON/AllTeams");
+        new inningScores().execute(boxScoreURL);
+
         homeTeamName = (TextView)findViewById(R.id.homeTeamName);
         awayTeamName = (TextView)findViewById(R.id.awayTeamName);
          homeScore = (TextView)findViewById(R.id.homeScore);
          awayScore = (TextView)findViewById(R.id.awayScore);
          homeLogo = (ImageView)findViewById(R.id.homeLogoImageView);
          awayLogo = (ImageView)findViewById(R.id.awayLogoImageView);
+        new DownloadImageTask((ImageView) findViewById(R.id.homeLogoImageView))
+                .execute(homeURL);
+        new DownloadImageTask((ImageView) findViewById(R.id.awayLogoImageView))
+                .execute(awayURL);
 
 
     }
@@ -176,28 +195,18 @@ public class advancedScoresActivity extends AppCompatActivity {
         protected void onPostExecute(List<advancedScoresModel> result) {
             super.onPostExecute(result);
             if (result != null){
-                //ScoresAdapter adapter = new ScoresAdapter(getApplicationContext(), R.layout.score_row, result);
                 for(int i = 0; i < result.size(); i++)
                 {
                     if (result.get(i).isHomeTeam())
                     {
-                        new DownloadImageTask((ImageView) findViewById(R.id.homeLogoImageView))
-                             .execute(result.get(i).getWikipediaLogoUrl());
                         homeTeamName.setText(result.get(i).getName());
 
-                       // bitmapHome = getBitmapFromURL(result.get(i).getWikipediaLogoUrl());
-                       // homeLogo.setImageBitmap(bitmapHome);
                     }
                     else if (result.get(i).isAwayTeam())
                     {
-                        new DownloadImageTask((ImageView) findViewById(R.id.awayLogoImageView))
-                                .execute(result.get(i).getWikipediaLogoUrl());
                         awayTeamName.setText(result.get(i).getName());
-
                     }
                 }
-               // homeLogo.setImageBitmap(bitmapHome);
-               // awayLogo.setImageBitmap(bitmapAway);
             }
             else{
                 Toast.makeText(getApplicationContext(),"Not able to fetch data.", Toast.LENGTH_LONG).show();
@@ -222,6 +231,120 @@ public class advancedScoresActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+    public class inningScores extends AsyncTask<String,String,List<inningModel>>{
+        protected List<inningModel> doInBackground(String... params) {
+            BufferedReader reader = null;
+            HttpURLConnection connect = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connect = (HttpURLConnection) url.openConnection();
+                connect.setRequestProperty("Ocp-Apim-Subscription-Key", "01fb8861e5e8434891609c4f6277a72b");
+                connect.connect();
+                InputStream stream = connect.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer buffer = new StringBuffer();
+
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+
+
+                String finalJSON = buffer.toString();
+                JSONObject parentObject = new JSONObject(finalJSON);
+
+                JSONArray boxScoreArray = parentObject.getJSONArray("Innings");
+                List<inningModel> inningModelList = new ArrayList<>();
+
+                for (int i = 0; i < boxScoreArray.length(); i++)
+                {
+                    JSONObject inningObject = boxScoreArray.getJSONObject(i);
+                    inningModel inningModelObject = new inningModel();
+                    inningModelObject.setInningID(inningObject.getInt("InningID"));
+                    inningModelObject.setGameID(inningObject.getInt("GameID"));
+                    inningModelObject.setInningNumber(inningObject.getInt("InningNumber"));
+                    inningModelObject.setAwayTeamRunsThisInning(inningObject.getInt("AwayTeamRuns"));
+                    inningModelObject.setHomeTeamRunsThisInning(inningObject.getInt("HomeTeamRuns"));
+                    inningModelList.add(inningModelObject);
+
+
+                }
+
+
+                return inningModelList;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connect != null) {
+                    connect.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(List<inningModel> result) {
+            super.onPostExecute(result);
+            if (result != null){ // currently hardcoding the small inning by inning scores until I can think of a better alternative
+                homeInning1 = (TextView)findViewById(R.id.first);
+                homeInning1.setText(result.get(0).getHomeTeamRunsThisInning()+"");
+                homeInning2 = (TextView)findViewById(R.id.second);
+                homeInning2.setText(result.get(1).getHomeTeamRunsThisInning()+"");
+                homeInning3 = (TextView)findViewById(R.id.third);
+                homeInning3.setText(result.get(2).getHomeTeamRunsThisInning()+"");
+                homeInning4 = (TextView)findViewById(R.id.fourth);
+                homeInning4.setText(result.get(3).getHomeTeamRunsThisInning()+"");
+                homeInning5 = (TextView)findViewById(R.id.fifth);
+                homeInning5.setText(result.get(4).getHomeTeamRunsThisInning()+"");
+                homeInning6 = (TextView)findViewById(R.id.sixth);
+                homeInning6.setText(result.get(5).getHomeTeamRunsThisInning()+"");
+                homeInning7 = (TextView)findViewById(R.id.seventh);
+                homeInning7.setText(result.get(6).getHomeTeamRunsThisInning()+"");
+                homeInning8 = (TextView)findViewById(R.id.eighth);
+                homeInning8.setText(result.get(7).getHomeTeamRunsThisInning()+"");
+                homeInning9 = (TextView)findViewById(R.id.ninth);
+                homeInning9.setText(result.get(8).getHomeTeamRunsThisInning()+"");
+
+                awayInning1 = (TextView)findViewById(R.id.awayFirst);
+                awayInning1.setText(result.get(0).getAwayTeamRunsThisInning()+"");
+                awayInning2 = (TextView)findViewById(R.id.awaySecond);
+                awayInning2.setText(result.get(1).getAwayTeamRunsThisInning()+"");
+                awayInning3 = (TextView)findViewById(R.id.awayThird);
+                awayInning3.setText(result.get(2).getAwayTeamRunsThisInning()+"");
+                awayInning4 = (TextView)findViewById(R.id.awayFourth);
+                awayInning4.setText(result.get(3).getAwayTeamRunsThisInning()+"");
+                awayInning5 = (TextView)findViewById(R.id.awayFifth);
+                awayInning5.setText(result.get(4).getAwayTeamRunsThisInning()+"");
+                awayInning6 = (TextView)findViewById(R.id.awaySixth);
+                awayInning6.setText(result.get(5).getAwayTeamRunsThisInning()+"");
+                awayInning7 = (TextView)findViewById(R.id.awaySeventh);
+                awayInning7.setText(result.get(6).getAwayTeamRunsThisInning()+"");
+                awayInning8 = (TextView)findViewById(R.id.awayEighth);
+                awayInning8.setText(result.get(7).getAwayTeamRunsThisInning()+"");
+                awayInning9 = (TextView)findViewById(R.id.awayNinth);
+                awayInning9.setText(result.get(8).getAwayTeamRunsThisInning()+"");
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Not able to fetch data1.", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
     public class Matchup extends AsyncTask<String, String, boxScoreModel> {
         private int awayID;
@@ -268,33 +391,48 @@ public class advancedScoresActivity extends AppCompatActivity {
                 String finalJSON = buffer.toString();
                 JSONObject parentObject = new JSONObject(finalJSON);
                 JSONObject finalObject = parentObject.getJSONObject("Game");
-
-
+                //JSONObject inningArrayObject = parentObject.getJSONObject("Innings");
                 int awayTeamID = finalObject.getInt("AwayTeamID");
                 int homeTeamID = finalObject.getInt("HomeTeamID");
                 setAwayID(awayTeamID);
                 setHomeID(homeTeamID);
                 List<boxScoreModel> boxScoreModelList = new ArrayList<>();
-                //JSONArray jsonArray = new JSONArray(finalJSON);
-                //for (int i = 0; i < jsonArray.length(); i++) { I dont think a loop is needed
 
-                    JSONObject finalJSONObject = new JSONObject();
-                    boxScoreModel boxScoreModelObject = new boxScoreModel();
-                    boxScoreModelObject.setAwayTeamID(awayTeamID);
-                    boxScoreModelObject.setHomeTeamID(homeTeamID);
-                    boxScoreModelObject.setAwayScore(finalObject.getInt("AwayTeamRuns"));
-                    boxScoreModelObject.setHomeScore(finalObject.getInt("HomeTeamRuns"));
-                    boxScoreModelList.add(boxScoreModelObject);
-                    return boxScoreModelObject;
-               // }
-               // return boxScoreModelList;
+                boxScoreModel boxScoreModelObject = new boxScoreModel();
+                boxScoreModelObject.setAwayTeamID(awayTeamID);
+                boxScoreModelObject.setHomeTeamID(homeTeamID);
+                boxScoreModelObject.setAwayScore(finalObject.getInt("AwayTeamRuns"));
+                boxScoreModelObject.setHomeScore(finalObject.getInt("HomeTeamRuns"));
+                boxScoreModelList.add(boxScoreModelObject);
+
+
+
+               /* JSONArray boxScoreArray = parentObject.getJSONArray("Innings");
+                List<inningModel> inningModelList = new ArrayList<>();
+
+                for (int i = 0; i < boxScoreArray.length(); i++)
+                {
+                    JSONObject inningObject = boxScoreArray.getJSONObject(i);
+                    inningModel inningModelObject = new inningModel();
+                    inningModelObject.setInningID(inningObject.getInt("InningID"));
+                    inningModelObject.setGameID(inningObject.getInt("GameID"));
+                    inningModelObject.setInningNumber(inningObject.getInt("InningNumber"));
+                    inningModelObject.setAwayTeamRunsThisInning(inningObject.getInt("AwayTeamRuns"));
+                    inningModelObject.setHomeTeamRunsThisInning(inningObject.getInt("HomeTeamRuns"));
+                    inningModelList.add(inningModelObject);
+
+
+                }
+                Toast.makeText(getApplicationContext(),"data fetch complete", Toast.LENGTH_LONG).show();
+*/
+                return boxScoreModelObject;
+
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }/* catch (JSONException e) {
-                e.printStackTrace();
-            }*/ catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             } finally {
                 if (connect != null) {
@@ -316,22 +454,14 @@ public class advancedScoresActivity extends AppCompatActivity {
         protected void onPostExecute(boxScoreModel result) {
             super.onPostExecute(result);
             if (result != null){
-               // ScoresAdapter adapter = new ScoresAdapter(getApplicationContext(), R.layout.score_row, result);
-              //  homeTeamName.setText(result.get(0).getHomeTeamID()+"");
-                //awayTeamName.setText(result.get(0).getAwayTeamID()+"");
-                //homeTeamName.setText(getHomeID()+"");
-               // awayTeamName.setText(getAwayID()+"");
+
                 homeScore.setText(result.getHomeScore()+"");
                 awayScore.setText(result.getAwayScore()+"");
 
-              //  homeScore.setText(result.get(0).getHomeScore()+"");
-              //  awayScore.setText(result.get(0).getAwayScore()+"");
             }
             else{
-                Toast.makeText(getApplicationContext(),"Not able to fetch data.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Not able to fetch data1.", Toast.LENGTH_LONG).show();
             }
-
-
         }
     }
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
