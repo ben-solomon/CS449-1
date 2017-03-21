@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Username"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="41dp"
+            android:id="@+id/etUsernameLogin" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_below="@+id/etUsernameLogin"
+            android:layout_alignEnd="@+id/etUsernameLogin"
+            android:layout_marginTop="40dp"
+            android:id="@+id/etPasswordLogin"
+            android:text="password" />
+
+        <Button
+            android:text="Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="69dp"
+            android:id="@+id/loginBtn"
+            android:layout_below="@+id/loginRegisterNowBtn"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:text="Need an account? Register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginRegisterNowBtn"
+            android:layout_marginTop="32dp"
+            android:layout_below="@+id/etPasswordLogin"
+            android:layout_alignStart="@+id/etPasswordLogin"
+            android:layout_alignEnd="@+id/etPasswordLogin" />
+    </RelativeLayout>
+
+</LinearLayout>

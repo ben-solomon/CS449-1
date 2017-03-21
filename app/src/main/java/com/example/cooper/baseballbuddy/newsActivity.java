@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.cooper.baseballbuddy.models.NewsModel;
+import com.example.cooper.baseballbuddy.models.connection;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -87,6 +88,8 @@ public class newsActivity extends AppCompatActivity {
                 }
 
                 String finalJson = buffer1.toString();
+                connection newConnection = new connection();
+                newConnection.getJSONCallAsString(params[0]);
                 List<NewsModel> newsModelList = new ArrayList<>();
                 JSONArray jsonArray = new JSONArray(finalJson);
                 for (int i = 0; i < jsonArray.length(); i++) {

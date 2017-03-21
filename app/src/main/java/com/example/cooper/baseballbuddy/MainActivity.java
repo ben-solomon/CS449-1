@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        Button myAccountBtn = (Button)findViewById(R.id.myAccountBtn);
+        myAccountBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, loginActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
