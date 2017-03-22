@@ -21,32 +21,36 @@
             android:name=".newsActivity"
             android:label="@string/title_activity_news"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
         </activity>
         <activity
             android:name=".scoreActivity"
             android:label="@string/title_activity_scores"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
         </activity>
+
         <activity
             android:name=".advancedScoresActivity"
             android:label="advancedScoresActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
         </activity>
+
         <activity
             android:name=".registerActivity"
             android:label="registerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
         </activity>
         <activity
             android:name=".loginActivity"
             android:label="loginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
         </activity>
-    </application>
+
+    <activity
+            android:name=".profileActivity"
+            android:label="profileActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" >
+    </activity>
+
+</application>
 
 </manifest>
