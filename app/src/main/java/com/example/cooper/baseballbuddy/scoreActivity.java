@@ -113,6 +113,8 @@ public class scoreActivity extends AppCompatActivity {
         }
     }
 */
+    // everybody using JSON files and im sitting here like wut. I wont try to understand what is going on here,
+    // except that your getting data from the sports website.
     public class JSONTask extends AsyncTask<String, String, List<ScoresModel>> {
         @Override
         protected List<ScoresModel> doInBackground(String... params) {
@@ -264,7 +266,13 @@ public class scoreActivity extends AppCompatActivity {
             inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         }
 
-
+    // I see you have class to download bitmap streams from the internet (DownloadImageTask), take a look at the picasso library!
+    // Does the same thing as your code, im sure, but all in one line :] heres an example
+    // Picasso.with(convertView.getContext()).load("http://i.imgur.com/0MJ5nQD.png").into(awayLogo); 
+    // you can also do things like add .resize(X,Y) and .error("failed.png") and .placeholder("loading.png) which is 
+    // super convenient. 
+   
+        
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -333,6 +341,9 @@ public class scoreActivity extends AppCompatActivity {
       //  test.execute(apiCall);
          return apiCall;
     }
+    
+    // what are the blanks for? (e.g   given.put(10000006, ""); ) -BS
+    
     public void initializeLogos(HashMap<Integer,String> given) {
         //Logos have to be in a certain format... ie can't use an SVG.
         // hashmap holds links to all of the team logos, which are then set in ImageViews
