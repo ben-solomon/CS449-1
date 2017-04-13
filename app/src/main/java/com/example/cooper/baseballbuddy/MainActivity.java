@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button aboutBtn = (Button)findViewById(R.id.aboutBtn);
+        aboutBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, feedActivity.class);
+                startActivity(intent);
+            }
+        });
         Button registerBtn = (Button)findViewById(R.id.signUpBtn);
         registerBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){

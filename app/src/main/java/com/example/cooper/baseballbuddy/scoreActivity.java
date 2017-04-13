@@ -136,6 +136,9 @@ public class scoreActivity extends AppCompatActivity {
 
 
                 String finalJSON = buffer.toString(); // call is now inside string finalJSON
+                if(buffer.toString() == null){
+
+                }
                 List<ScoresModel> scoresModelList = new ArrayList<>();
                 JSONArray jsonArray = new JSONArray(finalJSON);
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -247,8 +250,6 @@ public class scoreActivity extends AppCompatActivity {
             else{
                 Toast.makeText(getApplicationContext(),"Not able to fetch data.", Toast.LENGTH_LONG).show();
             }
-
-
         }
     }
 
@@ -320,6 +321,7 @@ public class scoreActivity extends AppCompatActivity {
             return convertView;
         }
     }
+
     public String getCurrentDate(){//adjusts web address being called to today
         Date today = Calendar.getInstance().getTime();
         String date = today.toString();
@@ -327,11 +329,12 @@ public class scoreActivity extends AppCompatActivity {
         month = date.toUpperCase().substring(4,7);
         String year = date.substring(24,28);
         String dayNum = date.substring(8,10);
-        String finalResult = year+"-"+month+"-"+dayNum;
-        String apiCall = "https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/"+finalResult;
-      //  JSONTask test = new JSONTask(); will later implement a workaround for a day where no games are played, i.e. given NULL
-      //  test.execute(apiCall);
-         return apiCall;
+        String finalResult = "https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/"+year+"-"+month+"-"+dayNum;
+        //String apiCall = "https://api.fantasydata.net/mlb/v2/JSON/GamesByDate/"+finalResult;
+
+        //JSONTask test = new JSONTask();// will later implement a workaround for a day where no games are played, i.e. given NULL
+        //test.execute(apiCall);
+        return finalResult;
     }
     public void initializeLogos(HashMap<Integer,String> given) {
         //Logos have to be in a certain format... ie can't use an SVG.

@@ -2,6 +2,7 @@ package com.example.cooper.baseballbuddy.models;
 
 /**
  * Created by Cooper on 2/21/2017.
+ * Used to load fantasyData web service call into variables. Specifically for a singular game's stats
  */
 
 public class ScoresModel {
