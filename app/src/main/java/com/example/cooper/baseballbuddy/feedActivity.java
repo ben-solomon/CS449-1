@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cooper.baseballbuddy.models.NewsModel;
 import com.example.cooper.baseballbuddy.models.connection;
@@ -41,8 +42,10 @@ import java.util.List;
 
 public class feedActivity extends AppCompatActivity {
     private ListView listView;
+    ArrayList<String> teamsfeed = new ArrayList<>();
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +55,9 @@ public class feedActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("teams");
 
-        new JSONTask().execute("https://api.fantasydata.net/mlb/v2/JSON/News");
-
 
     }
+
     public class JSONTask extends AsyncTask<String, String, List<NewsModel>> {
         @Override
         protected List<NewsModel> doInBackground(String... params) {
@@ -103,11 +105,15 @@ public class feedActivity extends AppCompatActivity {
                     newsModel.setPlayerID(finalObject.getInt("PlayerID"));
                     newsModel.setTeamID(finalObject.getInt("TeamID"));
                     newsModel.setTeam(finalObject.getString("Team"));
+                    int tempID = finalObject.getInt("TeamID");
+                    for (String j : teamsfeed) {
+                        if (j == Integer.toString(tempID)) {
+                            newsModelList.add(newsModel);
+                        }
 
-                    newsModelList.add(newsModel);
 
+                    }
                 }
-
                 return newsModelList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -141,29 +147,31 @@ public class feedActivity extends AppCompatActivity {
             // textView.setText(result);
         }
     }
-    public class NewsAdapter extends ArrayAdapter{
+
+    public class NewsAdapter extends ArrayAdapter {
         private List<NewsModel> newsModelList;
         private int resource;
         private LayoutInflater inflater;
+
         public NewsAdapter(Context context, int resource, List<NewsModel> objects) {
             super(context, resource, objects);
             newsModelList = objects;
             this.resource = resource;
-            inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         }
 
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            if (convertView == null){
-                convertView = inflater.inflate(resource,null);
+            if (convertView == null) {
+                convertView = inflater.inflate(resource, null);
             }
             TextView Headline;
             TextView Content;
 
-            Content = (TextView)convertView.findViewById(R.id.tvContent);
-            Headline = (TextView)convertView.findViewById(R.id.tvHeadline);
+            Content = (TextView) convertView.findViewById(R.id.tvContent);
+            Headline = (TextView) convertView.findViewById(R.id.tvHeadline);
 
             //if teamid matches teamID here
             Headline.setText(newsModelList.get(position).getTitle());
@@ -178,6 +186,7 @@ public class feedActivity extends AppCompatActivity {
             return convertView;
         }
     }
+
     @Override
     public void onStart() {
 
@@ -185,7 +194,7 @@ public class feedActivity extends AppCompatActivity {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                HashMap<Integer,String> retrievedTeams = new HashMap<Integer, String>();
+                HashMap<Integer, String> retrievedTeams = new HashMap<Integer, String>();
 
                 dataSnapshot.child("teams").child(auth.getCurrentUser().getUid());
                 ArrayList<userInformation> goals = new ArrayList<userInformation>();
@@ -193,16 +202,24 @@ public class feedActivity extends AppCompatActivity {
                     userInformation userTeam = snapshot.getValue(userInformation.class);
                     Integer id = userTeam.teamID;
                     String name = userTeam.teamName;
-                    retrievedTeams.put(id,name);
+                    Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_SHORT).show();
+                    if (id != 0 && id != 10000019) {
+                        teamsfeed.add(id.toString());
+                    }
+
+                    retrievedTeams.put(id, name);
                     goals.add(userTeam);
                 }
+
             }
+
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         };
         mDatabase.addValueEventListener(userListener);
+        new JSONTask().execute("https://api.fantasydata.net/mlb/v2/JSON/News");
     }
-
 }
