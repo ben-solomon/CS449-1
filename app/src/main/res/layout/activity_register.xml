@@ -11,18 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="favoriteTeam1ID"
-            android:ems="10"
-            android:id="@+id/etFavoriteTeam1ID"
-            android:layout_marginTop="66dp"
-            android:layout_below="@+id/etNameRegister"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
+            android:text="email"
             android:ems="10"
             android:id="@+id/etNameRegister"
             android:layout_alignParentTop="true"
@@ -33,7 +22,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:text="Password (0-16 characters)"
+            android:text="Password"
             android:id="@+id/etPasswordRegister"
             android:layout_marginTop="16dp"
             android:layout_below="@+id/etNameRegister"
@@ -43,9 +32,9 @@
             android:text="Register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="65dp"
             android:id="@+id/registerActivityBtn"
-            android:layout_below="@+id/etFavoriteTeam1ID"
+            android:layout_below="@+id/etPasswordRegister"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

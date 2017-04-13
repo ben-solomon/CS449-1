@@ -10,50 +10,75 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.cooper.baseballbuddy.profileActivity">
 
+
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
         android:id="@+id/tvEmail"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/logoutBtn"
+        android:layout_marginTop="30dp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/teamSpinner"
+        android:layout_marginBottom="17dp"
+        android:layout_below="@+id/tvEmail"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Add team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addFavoriteTeamBtn"
+        android:layout_marginTop="189dp"
+        android:layout_below="@+id/teamSpinner"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="119dp" />
 
     <Button
         android:text="Logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logoutBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/tvEmail"
-        android:layout_marginStart="14dp"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginTop="74dp"
+        android:layout_below="@+id/addFavoriteTeamBtn"
+        android:layout_alignEnd="@+id/addFavoriteTeamBtn" />
 
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-        android:id="@+id/materialBetterSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Select your favorite team"
-        android:layout_marginTop="81dp"
-        android:layout_below="@+id/tvEmail"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Add team"
+    <TextView
+        android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/materialBetterSpinner"
+        android:layout_below="@+id/teamSpinner"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="19dp"
-        android:id="@+id/addFavoriteTeamBtn" />
+        android:layout_marginStart="28dp"
+        android:visibility="invisible"
+        android:layout_marginTop="28dp"
+        android:id="@+id/favoriteTeamList1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <Spinner
-        android:layout_width="match_parent"
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/addFavoriteTeamBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
-        android:id="@+id/teamSpinner" />
+        android:visibility="invisible"
+        android:layout_marginTop="71dp"
+        android:id="@+id/favoriteTeamList3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@+id/favoriteTeamList1"
+        android:layout_alignStart="@+id/favoriteTeamList1" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginTop="23dp"
+        android:id="@+id/favoriteTeamList2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_below="@+id/favoriteTeamList1"
+        android:layout_alignStart="@+id/favoriteTeamList1" />
 </RelativeLayout>
